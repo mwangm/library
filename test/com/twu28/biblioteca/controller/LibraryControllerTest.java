@@ -24,9 +24,7 @@ public class LibraryControllerTest {
     @Before
     public void setUp() throws Exception {
         console = new ConsoleStub();
-        libraryController = new LibraryController(console);
-        libraryController.setLibraryResource(createLibraryResource());
-
+        libraryController = new LibraryController(console, createLibraryResource(), null);
     }
 
     @Test
@@ -75,20 +73,22 @@ public class LibraryControllerTest {
     }
 
     @Test
-    public void should_be_able_to_choose_show_menu_again() {
-        libraryController.playActions(4);
-        assertThat(console.getOutput(), is("1:View all books\n2:Reserve a book\n3:Check Your Library Number\n4:show menu again\n5:show all movie\n6:login\n0:exit\nselect a option to go continued:"));
-    }
-
-    @Test
     public void should_show_all_movies_when_User_select_to_view_all_movies(){
         libraryController.playActions(5);
         assertThat(console.getOutput(), is("ID:1 Movie Name:I am sam\n"));
     }
 
     @Test
+    public void should_remind_not_a_valid_option_when_not_avaliable_option(){
+        libraryController.playActions(7);
+        assertThat(console.getOutput(), is("please select a valid option!\n"));
+    }
+
+    @Test
     public void should_be_able_to_exit() {
+        libraryController.setLoginService(mock(LoginService.class));
         boolean continued = libraryController.playActions(0);
+        
         assertThat(console.getOutput(), is("bye~\n"));
         assertThat(continued, is(false));
 
