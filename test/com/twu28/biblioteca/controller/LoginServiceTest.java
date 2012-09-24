@@ -20,18 +20,21 @@ public class LoginServiceTest {
     @Test
     public void should_login_success_with_valid_username_and_password(){
         assertThat(loginService.login("1", "password"), is(true));
+        assertThat(loginService.isUserLogin(), is(true));
     }
 
     @Test
     public void should_login_fail_with_invalid_username_and_password(){
         assertThat(loginService.login("1", "invalid password"), is(false));
         assertThat(loginService.login("invalid id", "password"), is(false));
+        assertThat(loginService.isUserLogin(), is(false));
     }
 
     @Test
     public void should_be_able_to_log_out() {
         loginService.logout();
         assertThat(loginService.getCurrentUser(), nullValue());
+        assertThat(loginService.isUserLogin(), is(false));
     }
 
 }

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoginService {
-    private  List<User> users;
+    private List<User> users;
     private User currentUser;
 
     public LoginService() {
@@ -41,5 +41,9 @@ public class LoginService {
 
     public User getCurrentUser() {
         return currentUser;
+    }
+
+    public boolean isUserLogin() {
+        return currentUser == null ? false : true;
     }
 }

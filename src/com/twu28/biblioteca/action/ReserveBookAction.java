@@ -6,6 +6,11 @@ public class ReserveBookAction implements IAction {
 
     @Override
     public void playAction(LibraryController libraryController) {
+        if(!libraryController.isUserHaveBeenLogin()) {
+            libraryController.responseToUser("please login first before you reserve book\n");
+            return;
+        }
+
         libraryController.responseToUser("please enter the id of the book you want:");
         String bookId = libraryController.getUserInput();
         if (libraryController.reserveBook(bookId))

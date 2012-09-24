@@ -71,4 +71,8 @@ public class LibraryController {
     public void responseToUser(String message) {
         console.output(message);
     }
+
+    public boolean isUserHaveBeenLogin() {
+        return loginService.isUserLogin();
+    }
 }

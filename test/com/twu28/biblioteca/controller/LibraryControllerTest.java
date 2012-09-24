@@ -24,11 +24,13 @@ public class LibraryControllerTest {
     public static final String INVALID_PASSWORD = "invalidPassword";
     private ConsoleStub console;
     private LibraryController libraryController;
+    private LibraryService libraryResource;
 
     @Before
     public void setUp() throws Exception {
         console = new ConsoleStub();
-        libraryController = new LibraryController(console, createLibraryResource(), createLoginService());
+        libraryResource = createLibraryResource();
+        libraryController = new LibraryController(console, libraryResource, createLoginService());
     }
 
     @Test
@@ -56,14 +58,24 @@ public class LibraryControllerTest {
     }
 
     @Test
-    public void should_reserve_successful_when_User_select_an_exit_book(){
+    public void should_not_be_able_to_reserve_book_when_User_not_login(){
+        libraryController = new LibraryController(console, libraryResource, createLoginServiceWithLogin(false));
+        console.input("1234");
+        libraryController.playActions(2);
+        assertThat(console.getOutput(), is("please login first before you reserve book\n"));
+    }
+
+    @Test
+    public void should_reserve_successful_when_select_an_exit_book_after_user_login(){
+        libraryController = new LibraryController(console, libraryResource, createLoginServiceWithLogin(true));
         console.input("1234");
         libraryController.playActions(2);
         assertThat(console.getOutput(), is("please enter the id of the book you want:Thank You! Enjoy the book.\n"));
     }
 
     @Test
-    public void should_reserve_unsuccessful_when_User_select_an_none_exit_book() {
+    public void should_reserve_unsuccessful_when_select_an_none_exit_book_after_user_login(){
+        libraryController = new LibraryController(console, libraryResource, createLoginServiceWithLogin(true));
         console.input("1111");
         libraryController.playActions(2);
         assertThat(console.getOutput(), is("please enter the id of the book you want:Sorry we don't have that book yet.\n"));
@@ -123,6 +135,14 @@ public class LibraryControllerTest {
         when(loginService.login(USER_NAME, INVALID_PASSWORD)).thenReturn(false);
         return loginService;
     }
+
+    private LoginService createLoginServiceWithLogin(boolean isHaveBeenLogin) {
+        LoginService loginService = mock(LoginService.class);
+        when(loginService.isUserLogin()).thenReturn(isHaveBeenLogin);
+        return loginService;
+    }
+
+
 
     private LibraryService createLibraryResource() {
         LibraryService libraryService = mock(LibraryService.class);
