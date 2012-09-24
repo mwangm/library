@@ -1,8 +1,9 @@
 package com.twu28.biblioteca.controller;
 
 import com.twu28.biblioteca.Console.ConsoleStub;
+import com.twu28.biblioteca.Service.LibraryService;
+import com.twu28.biblioteca.Service.LoginService;
 import com.twu28.biblioteca.model.Book;
-import com.twu28.biblioteca.model.LibraryResource;
 import com.twu28.biblioteca.model.Movie;
 import org.junit.Before;
 import org.junit.Test;
@@ -131,17 +132,17 @@ public class LibraryControllerTest {
 
 
 
-    private LibraryResource createLibraryResource() {
-        LibraryResource libraryResource = mock(LibraryResource.class);
+    private LibraryService createLibraryResource() {
+        LibraryService libraryService = mock(LibraryService.class);
         List<Book> books = new ArrayList<Book>();
         books.add(new Book(1234, "the JavaScript"));
         List<Movie> movies = new ArrayList<Movie>();
         movies.add(new Movie(1, "I am sam"));
-        when(libraryResource.reserveBook(1234)).thenReturn(true);
-        when(libraryResource.reserveBook(1111)).thenReturn(false);
-        when(libraryResource.getAllBooks()).thenReturn(books);
-        when(libraryResource.getAllMovies()).thenReturn(movies);
-        return libraryResource;
+        when(libraryService.reserveBook(1234)).thenReturn(true);
+        when(libraryService.reserveBook(1111)).thenReturn(false);
+        when(libraryService.getAllBooks()).thenReturn(books);
+        when(libraryService.getAllMovies()).thenReturn(movies);
+        return libraryService;
     }
 
 }

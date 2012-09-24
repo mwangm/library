@@ -1,21 +1,22 @@
 package com.twu28.biblioteca.controller;
 
 import com.twu28.biblioteca.Console.IConsole;
+import com.twu28.biblioteca.Service.LibraryService;
+import com.twu28.biblioteca.Service.LoginService;
 import com.twu28.biblioteca.action.*;
 import com.twu28.biblioteca.model.Book;
-import com.twu28.biblioteca.model.LibraryResource;
 import com.twu28.biblioteca.model.Movie;
 
 import java.util.List;
 
 public class LibraryController {
     private IConsole console;
-    private LibraryResource libraryResource;
+    private LibraryService libraryService;
     private LoginService loginService;
 
-    public LibraryController(IConsole console, LibraryResource libraryResource, LoginService loginService) {
+    public LibraryController(IConsole console, LibraryService libraryService, LoginService loginService) {
         this.console = console;
-        this.libraryResource = libraryResource;
+        this.libraryService = libraryService;
         this.loginService = loginService;
     }
 
@@ -28,12 +29,7 @@ public class LibraryController {
     }
 
     public void displayMenu() {
-        String menu = "1:View all books\n2:Reserve a book\n3:Check Your Library Number\n4:show menu again\n5:show all movie\n6:login\n0:exit\nselect a option to go continued:";
-        console.output(menu);
-    }
-
-    public void responseToUser(String message) {
-        console.output(message);
+        console.output(ActionFactory.getActionList());
     }
 
     public boolean playActions(int selectedOption) {
@@ -50,19 +46,33 @@ public class LibraryController {
         loginService.logout();
     }
 
-    public List<Book> getAllBooks() {
-        return libraryResource.getAllBooks();
+    public String getAllBooks() {
+        List<Book> allBooks = libraryService.getAllBooks();
+        StringBuilder booklist = new StringBuilder();
+        for (Book book : allBooks) {
+            booklist.append(book.toString()).append("\n");
+        }
+        return booklist.toString();
     }
 
     public boolean reserveBook(String bookId) {
-        return libraryResource.reserveBook(Integer.parseInt(bookId));
+        return libraryService.reserveBook(Integer.parseInt(bookId));
+    }
+
+    public String getAllMovies() {
+        List<Movie> allMovies = libraryService.getAllMovies();
+        StringBuilder movieList = new StringBuilder();
+        for (Movie movie : allMovies) {
+            movieList.append(movie.toString()).append("\n");
+        }
+        return movieList.toString();
     }
 
     public String getUserInput() {
         return console.getInput();
     }
 
-    public List<Movie> getAllMovies() {
-        return libraryResource.getAllMovies();
+    public void responseToUser(String message) {
+        console.output(message);
     }
 }

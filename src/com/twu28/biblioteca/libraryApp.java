@@ -1,14 +1,14 @@
 package com.twu28.biblioteca;
 
 import com.twu28.biblioteca.Console.Console;
+import com.twu28.biblioteca.Service.LibraryService;
+import com.twu28.biblioteca.Service.LoginService;
 import com.twu28.biblioteca.controller.LibraryController;
-import com.twu28.biblioteca.controller.LoginService;
-import com.twu28.biblioteca.model.LibraryResource;
 
 public class libraryApp {
 
     public static void main(String[] args) {
-        LibraryController libraryController = new LibraryController(new Console(), new LibraryResource(), new LoginService());
+        LibraryController libraryController = new LibraryController(new Console(), new LibraryService(), new LoginService());
 
         libraryController.showWelcome();
         libraryController.displayMenu();

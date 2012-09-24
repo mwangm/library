@@ -1,13 +1,16 @@
-package com.twu28.biblioteca.model;
+package com.twu28.biblioteca.Service;
+
+import com.twu28.biblioteca.model.Book;
+import com.twu28.biblioteca.model.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LibraryResource {
+public class LibraryService {
     private List<Book> books;
     private List<Movie> movies;
 
-    public LibraryResource() {
+    public LibraryService() {
         initialBookList();
         initialMovieList();
     }
