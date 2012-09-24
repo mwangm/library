@@ -1,4 +1,4 @@
-package com.twu28.biblioteca.Service;
+package com.twu28.biblioteca.service;
 
 import com.twu28.biblioteca.model.User;
 

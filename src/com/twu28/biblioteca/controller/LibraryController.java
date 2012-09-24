@@ -1,8 +1,8 @@
 package com.twu28.biblioteca.controller;
 
-import com.twu28.biblioteca.Console.IConsole;
-import com.twu28.biblioteca.Service.LibraryService;
-import com.twu28.biblioteca.Service.LoginService;
+import com.twu28.biblioteca.console.IConsole;
+import com.twu28.biblioteca.service.LibraryService;
+import com.twu28.biblioteca.service.LoginService;
 import com.twu28.biblioteca.action.*;
 import com.twu28.biblioteca.model.Book;
 import com.twu28.biblioteca.model.Movie;
@@ -17,10 +17,6 @@ public class LibraryController {
     public LibraryController(IConsole console, LibraryService libraryService, LoginService loginService) {
         this.console = console;
         this.libraryService = libraryService;
-        this.loginService = loginService;
-    }
-
-    public void setLoginService(LoginService loginService) {
         this.loginService = loginService;
     }
 

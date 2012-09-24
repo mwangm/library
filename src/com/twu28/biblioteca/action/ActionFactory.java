@@ -16,11 +16,11 @@ public class ActionFactory {
             case 0:
                 return new ExitAction();
             default:
-                return new NotValidOption();
+                return new NotValidAction();
         }
     }
     
     public static String getActionList(){
-        return "1:View all books\n2:Reserve a book\n3:Check Your Library Number\n4:show menu again\n5:show all movie\n6:login\n0:exit\nselect a option to go continued:";
+        return "1:View all books\n2:Reserve a book\n3:Check Your Library Number\n5:show all movie\n6:login\n0:exit\nselect a option to go continued:";
     }
 }

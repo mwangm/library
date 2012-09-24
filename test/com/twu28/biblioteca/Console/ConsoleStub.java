@@ -1,4 +1,4 @@
-package com.twu28.biblioteca.Console;
+package com.twu28.biblioteca.console;
 
 import java.util.ArrayList;
 

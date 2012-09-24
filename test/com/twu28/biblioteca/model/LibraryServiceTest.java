@@ -1,6 +1,6 @@
 package com.twu28.biblioteca.model;
 
-import com.twu28.biblioteca.Service.LibraryService;
+import com.twu28.biblioteca.service.LibraryService;
 import org.junit.Before;
 import org.junit.Test;
 

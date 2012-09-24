@@ -1,6 +1,6 @@
 package com.twu28.biblioteca.controller;
 
-import com.twu28.biblioteca.Service.LoginService;
+import com.twu28.biblioteca.service.LoginService;
 import org.junit.Before;
 import org.junit.Test;
 

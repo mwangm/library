@@ -1,8 +1,8 @@
 package com.twu28.biblioteca;
 
-import com.twu28.biblioteca.Console.Console;
-import com.twu28.biblioteca.Service.LibraryService;
-import com.twu28.biblioteca.Service.LoginService;
+import com.twu28.biblioteca.console.Console;
+import com.twu28.biblioteca.service.LibraryService;
+import com.twu28.biblioteca.service.LoginService;
 import com.twu28.biblioteca.controller.LibraryController;
 
 public class libraryApp {

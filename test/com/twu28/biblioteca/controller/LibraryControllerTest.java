@@ -1,8 +1,8 @@
 package com.twu28.biblioteca.controller;
 
-import com.twu28.biblioteca.Console.ConsoleStub;
-import com.twu28.biblioteca.Service.LibraryService;
-import com.twu28.biblioteca.Service.LoginService;
+import com.twu28.biblioteca.console.ConsoleStub;
+import com.twu28.biblioteca.service.LibraryService;
+import com.twu28.biblioteca.service.LoginService;
 import com.twu28.biblioteca.model.Book;
 import com.twu28.biblioteca.model.Movie;
 import org.junit.Before;
@@ -19,13 +19,16 @@ import static org.mockito.Mockito.when;
 
 public class LibraryControllerTest {
 
+    public static final String USER_NAME = "UserName";
+    public static final String USER_PASSWORD = "UserPassword";
+    public static final String INVALID_PASSWORD = "invalidPassword";
     private ConsoleStub console;
     private LibraryController libraryController;
 
     @Before
     public void setUp() throws Exception {
         console = new ConsoleStub();
-        libraryController = new LibraryController(console, createLibraryResource(), null);
+        libraryController = new LibraryController(console, createLibraryResource(), createLoginService());
     }
 
     @Test
@@ -43,7 +46,7 @@ public class LibraryControllerTest {
     @Test
     public void should_be_able_to_display_menu_message() {
         libraryController.displayMenu();
-        assertThat(console.getOutput(), is("1:View all books\n2:Reserve a book\n3:Check Your Library Number\n4:show menu again\n5:show all movie\n6:login\n0:exit\nselect a option to go continued:"));
+        assertThat(console.getOutput(), is("1:View all books\n2:Reserve a book\n3:Check Your Library Number\n5:show all movie\n6:login\n0:exit\nselect a option to go continued:"));
     }
 
     @Test
@@ -87,9 +90,8 @@ public class LibraryControllerTest {
 
     @Test
     public void should_be_able_to_exit() {
-        libraryController.setLoginService(mock(LoginService.class));
         boolean continued = libraryController.playActions(0);
-        
+
         assertThat(console.getOutput(), is("bye~\n"));
         assertThat(continued, is(false));
 
@@ -97,40 +99,30 @@ public class LibraryControllerTest {
 
     @Test
     public void should_be_able_to_login_with_valid_info() {
-        String userId = "123";
-        String password = "666666";
-        libraryController.setLoginService(createLoginService(userId, password, false));
-
-        console.input(userId);
-        console.input(password);
-
-        libraryController.playActions(6);
-        assertThat(console.getOutput(), is("please enter you library user id:please enter you password:invalid id or password\n"));
-
-    }
-
-    @Test
-    public void should_be_failed_to_login_with_invalid_info() {
-        String userId = "123";
-        String password = "666666";
-        libraryController.setLoginService(createLoginService(userId,password, true));
-
-        console.input(userId);
-        console.input(password);
+        console.input(USER_NAME);
+        console.input(USER_PASSWORD);
 
         libraryController.playActions(6);
         assertThat(console.getOutput(), is("please enter you library user id:please enter you password:log in successful\n"));
 
     }
 
+    @Test
+    public void should_be_failed_to_login_with_invalid_info() {
+        console.input(USER_NAME);
+        console.input(INVALID_PASSWORD);
 
-    private LoginService createLoginService(String userId, String password, boolean loginSuccess) {
-        LoginService loginService = mock(LoginService.class);
-        when(loginService.login(userId, password)).thenReturn(loginSuccess);
-        return loginService;
+        libraryController.playActions(6);
+        assertThat(console.getOutput(), is("please enter you library user id:please enter you password:invalid id or password\n"));
+
     }
 
-
+    private LoginService createLoginService() {
+        LoginService loginService = mock(LoginService.class);
+        when(loginService.login(USER_NAME, USER_PASSWORD)).thenReturn(true);
+        when(loginService.login(USER_NAME, INVALID_PASSWORD)).thenReturn(false);
+        return loginService;
+    }
 
     private LibraryService createLibraryResource() {
         LibraryService libraryService = mock(LibraryService.class);
