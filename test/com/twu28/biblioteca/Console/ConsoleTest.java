@@ -7,7 +7,6 @@ import org.junit.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Scanner;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -15,6 +14,7 @@ import static org.junit.Assert.assertThat;
 public class ConsoleTest {
     public static final String HELLO = "hello";
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private Console console = new Console();
 
     @Before
     public void setUpStreams() {
@@ -24,14 +24,13 @@ public class ConsoleTest {
 
     @Test
     public void testOutput() {
-        System.out.print(HELLO);
-        assertThat(HELLO, is(outContent.toString()));
+        console.output(HELLO);
+        assertThat(HELLO + "\n", is(outContent.toString()));
     }
 
     @Test
     public void testInput() throws Exception {
-        Scanner scanner = new Scanner(System.in);
-        assertThat(scanner.nextLine(), is(HELLO));
+        assertThat(console.getInput(), is(HELLO));
     }
 
     @After
