@@ -9,4 +9,14 @@ public class ShowBooksAction implements IAction{
         libraryController.responseToUser(libraryController.getAllBooks());
     }
 
+    @Override
+    public int getActionCode() {
+        return 1;
+    }
+
+    @Override
+    public String getDescription() {
+        return "View all books";
+    }
+
 }

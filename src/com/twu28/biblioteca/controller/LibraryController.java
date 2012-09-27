@@ -25,13 +25,14 @@ public class LibraryController {
     }
 
     public void displayMenu() {
-        console.output(ActionFactory.getActionList());
+        String menu = ActionFactory.getActionList() + "select a option to go continued:";
+        console.output(menu);
     }
 
     public boolean playActions(int selectedOption) {
         IAction action = ActionFactory.createAction(selectedOption);
         action.playAction(this);
-        return action instanceof ExitAction ? false :true;
+        return action instanceof ExitAction ? false : true;
     }
 
     public Boolean login(String id, String password) {
@@ -44,24 +45,26 @@ public class LibraryController {
 
     public String getAllBooks() {
         List<Book> allBooks = libraryService.getAllBooks();
-        StringBuilder booklist = new StringBuilder();
-        for (Book book : allBooks) {
-            booklist.append(book.toString()).append("\n");
-        }
-        return booklist.toString();
-    }
-
-    public boolean reserveBook(String bookId) {
-        return libraryService.reserveBook(Integer.parseInt(bookId));
+        return listToString(allBooks);
     }
 
     public String getAllMovies() {
         List<Movie> allMovies = libraryService.getAllMovies();
-        StringBuilder movieList = new StringBuilder();
-        for (Movie movie : allMovies) {
-            movieList.append(movie.toString()).append("\n");
+        return listToString(allMovies);
+    }
+
+    private String listToString(List list){
+        StringBuilder result = new StringBuilder();
+
+        for (Object object : list) {
+            result.append(object.toString()).append("\n");
         }
-        return movieList.toString();
+
+        return result.toString();
+    }
+
+    public boolean reserveBook(String bookId) {
+        return libraryService.reserveBook(Integer.parseInt(bookId));
     }
 
     public String getUserInput() {

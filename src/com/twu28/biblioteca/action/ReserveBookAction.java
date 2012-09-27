@@ -19,4 +19,14 @@ public class ReserveBookAction implements IAction {
             libraryController.responseToUser("Sorry we don't have that book yet.\n");
     }
 
+    @Override
+    public int getActionCode() {
+        return 2;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Reserve a book";
+    }
+
 }

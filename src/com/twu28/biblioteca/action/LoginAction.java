@@ -17,4 +17,14 @@ public class LoginAction implements IAction{
         }
         libraryController.responseToUser("invalid id or password\n");
     }
+
+    @Override
+    public int getActionCode() {
+        return 6;
+    }
+
+    @Override
+    public String getDescription() {
+        return "login";
+    }
 }

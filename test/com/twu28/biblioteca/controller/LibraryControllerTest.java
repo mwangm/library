@@ -48,7 +48,7 @@ public class LibraryControllerTest {
     @Test
     public void should_be_able_to_display_menu_message() {
         libraryController.displayMenu();
-        assertThat(console.getOutput(), is("1:View all books\n2:Reserve a book\n3:Check Your Library Number\n5:show all movie\n6:login\n0:exit\nselect a option to go continued:"));
+        assertThat(console.getOutput(), is("1:View all books\n2:Reserve a book\n3:Check Your Library Number\n5:show all movie\n6:login\n7:exit\nselect a option to go continued:"));
     }
 
     @Test
@@ -96,13 +96,13 @@ public class LibraryControllerTest {
 
     @Test
     public void should_remind_not_a_valid_option_when_not_avaliable_option(){
-        libraryController.playActions(7);
+        libraryController.playActions(19);
         assertThat(console.getOutput(), is("please select a valid option!\n"));
     }
 
     @Test
     public void should_be_able_to_exit() {
-        boolean continued = libraryController.playActions(0);
+        boolean continued = libraryController.playActions(7);
 
         assertThat(console.getOutput(), is("bye~\n"));
         assertThat(continued, is(false));

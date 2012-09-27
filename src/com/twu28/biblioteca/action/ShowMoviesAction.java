@@ -9,4 +9,14 @@ public class ShowMoviesAction implements IAction {
         libraryController.responseToUser(libraryController.getAllMovies());
     }
 
+    @Override
+    public int getActionCode() {
+        return 5;
+    }
+
+    @Override
+    public String getDescription() {
+        return "show all movie";
+    }
+
 }

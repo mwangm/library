@@ -9,4 +9,14 @@ public class ExitAction implements IAction{
         libraryController.logout();
         libraryController.responseToUser("bye~\n");
     }
+
+    @Override
+    public int getActionCode() {
+        return 7;
+    }
+
+    @Override
+    public String getDescription() {
+        return "exit";
+    }
 }
